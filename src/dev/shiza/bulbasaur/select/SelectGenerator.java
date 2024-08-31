@@ -22,7 +22,7 @@ public final class SelectGenerator implements QueryGenerator<Select> {
     appendOrderByClause(queryBuilder, select);
     appendLimitClause(queryBuilder, select);
 
-    return queryBuilder.append(";").toString();
+    return queryBuilder.toString();
   }
 
   private void appendJoinClauses(final StringBuilder queryBuilder, final Select select) {

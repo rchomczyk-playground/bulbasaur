@@ -16,7 +16,7 @@ public final class InsertGenerator implements QueryGenerator<Insert> {
 
     appendValuesClause(queryBuilder, insert);
 
-    return queryBuilder.append(";").toString();
+    return queryBuilder.toString();
   }
 
   private void appendValuesClause(final StringBuilder queryBuilder, final Insert insert) {

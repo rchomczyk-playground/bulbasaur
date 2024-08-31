@@ -12,7 +12,7 @@ class UpdateGeneratorTests {
     final String expectedQuery =
         """
         UPDATE users
-        SET username = ?, registration_address = ?, registration_time = ?, last_online_address = ?, last_online_time = ?;
+        SET username = ?, registration_address = ?, registration_time = ?, last_online_address = ?, last_online_time = ?
         """
             .trim();
     final String generatedQuery =
@@ -32,7 +32,7 @@ class UpdateGeneratorTests {
         """
         UPDATE users
         SET username = ?, registration_address = ?, registration_time = ?, last_online_address = ?, last_online_time = ?
-        WHERE unique_id = ?;
+        WHERE unique_id = ?
         """
             .trim();
     final String generatedQuery =

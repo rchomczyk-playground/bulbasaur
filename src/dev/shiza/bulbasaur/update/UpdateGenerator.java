@@ -14,7 +14,7 @@ public final class UpdateGenerator implements QueryGenerator<Update> {
     appendSetClauses(queryBuilder, update);
     appendWhereClause(queryBuilder, update.whereCondition());
 
-    return queryBuilder.append(";").toString();
+    return queryBuilder.toString();
   }
 
   private void appendSetClauses(final StringBuilder queryBuilder, final Update update) {

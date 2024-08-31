@@ -30,8 +30,8 @@ public final class Select {
     return this;
   }
 
-  public Select join(final String table, final String tableField, final String queryField) {
-    this.joins.add(new Join(table, tableField, queryField));
+  public Select join(final String table, final Condition condition) {
+    this.joins.add(new Join(table, condition));
     return this;
   }
 
@@ -110,5 +110,5 @@ public final class Select {
     return limit;
   }
 
-  record Join(String target, String targetField, String sourceField) {}
+  record Join(String target, Condition condition) {}
 }

@@ -26,22 +26,15 @@ public final class SelectGenerator implements QueryGenerator<Select> {
   }
 
   private void appendJoinClauses(final StringBuilder queryBuilder, final Select select) {
-    select.joins().forEach(join -> appendJoinClause(queryBuilder, select, join));
+    select.joins().forEach(join -> appendJoinClause(queryBuilder, join));
   }
 
-  private void appendJoinClause(
-      final StringBuilder queryBuilder, final Select select, final Join join) {
+  private void appendJoinClause(final StringBuilder queryBuilder, final Join join) {
     queryBuilder
         .append("\nLEFT JOIN ")
         .append(join.target())
         .append(" ON ")
-        .append(select.table())
-        .append(".")
-        .append(join.sourceField())
-        .append(" = ")
-        .append(join.target())
-        .append(".")
-        .append(join.targetField());
+        .append(join.condition().generate());
   }
 
   private void appendWhereClause(final StringBuilder queryBuilder, final Condition condition) {

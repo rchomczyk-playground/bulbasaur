@@ -22,8 +22,8 @@ class SelectGeneratorTests {
     final String generatedQuery =
         select("name")
             .from("accounts")
-            .join("users", "id", "user_id")
-            .join("currencies", "id", "currency_id")
+            .join("users", Conditions.eq("accounts.user_id", "users.id"))
+            .join("currencies", Conditions.eq("accounts.currency_id", "currencies.id"))
             .where(
                 Conditions.eq("user_id")
                     .and(Conditions.eq("currency_id"))

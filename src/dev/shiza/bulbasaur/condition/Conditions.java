@@ -55,4 +55,20 @@ public final class Conditions {
   public static Condition lte(final String field) {
     return lte(field, "?");
   }
+
+  public static Condition between(final String field, final Object min, final Object max) {
+    return () -> field + " BETWEEN " + min + " AND " + max;
+  }
+
+  public static Condition between(final String field) {
+    return between(field, "?", "?");
+  }
+
+  public static Condition like(final String field, final String pattern) {
+    return () -> field + " LIKE " + pattern;
+  }
+
+  public static Condition like(final String field) {
+    return like(field, "?");
+  }
 }

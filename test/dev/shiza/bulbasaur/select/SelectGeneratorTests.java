@@ -1,7 +1,9 @@
 package dev.shiza.bulbasaur.select;
 
+import static dev.shiza.bulbasaur.condition.Conditions.between;
 import static dev.shiza.bulbasaur.condition.Conditions.eq;
 import static dev.shiza.bulbasaur.condition.Conditions.gt;
+import static dev.shiza.bulbasaur.condition.Conditions.like;
 import static dev.shiza.bulbasaur.select.SelectDsl.select;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -56,6 +58,27 @@ class SelectGeneratorTests {
   }
 
   @Test
+  void generateDistinctSelectQueryWithLikeAndBetween() {
+    final String expectedQuery =
+        """
+        SELECT DISTINCT name
+        FROM products
+        WHERE name LIKE a% AND price BETWEEN 150 AND 300
+        LIMIT 10
+        """
+            .trim();
+    final String generatedQuery =
+        select("name")
+            .distinct()
+            .from("products")
+            .where(like("name", "a%").and(between("price", 150, 300)))
+            .limit(10)
+            .query();
+
+    assertEquals(expectedQuery, generatedQuery);
+  }
+
+  @Test
   void generateComplexSelectQuery() {
     final Select counterQuery =
         select("COUNT(*) + 1")
@@ -94,7 +117,8 @@ class SelectGeneratorTests {
         LEFT JOIN auroramc_registry_users AS primary_users ON primary_users.id = primary_query.user_id
         WHERE currency_id = ? AND user_id = ?
         ORDER BY position ASC
-        """.trim();
+        """
+            .trim();
     final String generatedQuery = primaryQuery.query();
 
     assertEquals(expectedQuery, generatedQuery);

@@ -11,6 +11,7 @@ import java.util.List;
 public final class Select {
 
   public static final List<String> WILDCARD = singletonList("*");
+  private boolean distinct = false;
   private final List<String> fields;
   private final List<Join> joins = new ArrayList<>();
   private String table;
@@ -23,6 +24,11 @@ public final class Select {
 
   Select(final List<String> fields) {
     this.fields = fields.isEmpty() ? WILDCARD : fields;
+  }
+
+  public Select distinct() {
+    this.distinct = true;
+    return this;
   }
 
   public Select from(final String table) {
@@ -72,6 +78,10 @@ public final class Select {
 
   public String query() {
     return QueryGenerators.select().generate(this);
+  }
+
+  boolean isDistinct() {
+    return distinct;
   }
 
   String table() {

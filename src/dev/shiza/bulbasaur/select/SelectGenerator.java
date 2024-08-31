@@ -9,8 +9,11 @@ public final class SelectGenerator implements QueryGenerator<Select> {
   @Override
   public String generate(final Select select) {
     final StringBuilder queryBuilder = new StringBuilder();
+    queryBuilder.append("SELECT ");
+
+    appendDistinctClause(queryBuilder, select);
+
     queryBuilder
-        .append("SELECT ")
         .append(String.join(", ", select.fields()))
         .append("\nFROM ")
         .append(select.table());
@@ -23,6 +26,12 @@ public final class SelectGenerator implements QueryGenerator<Select> {
     appendLimitClause(queryBuilder, select);
 
     return queryBuilder.toString();
+  }
+
+  private void appendDistinctClause(final StringBuilder queryBuilder, final Select select) {
+    if (select.isDistinct()) {
+      queryBuilder.append("DISTINCT ");
+    }
   }
 
   private void appendJoinClauses(final StringBuilder queryBuilder, final Select select) {

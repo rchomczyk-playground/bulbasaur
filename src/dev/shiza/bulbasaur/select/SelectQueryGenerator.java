@@ -39,7 +39,9 @@ final class SelectQueryGenerator implements QueryGenerator<SelectQuery> {
 
   private void appendJoinClause(final StringBuilder queryBuilder, final Join join) {
     queryBuilder
-        .append("\nLEFT JOIN ")
+        .append("\n")
+        .append(join.type())
+        .append(" JOIN ")
         .append(join.target())
         .append(" ON ")
         .append(join.condition().generate());

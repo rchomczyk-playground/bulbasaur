@@ -21,7 +21,13 @@ public interface Select extends Query {
 
   Select from(final @NotNull String table);
 
-  Select join(final @NotNull String table, final Condition condition);
+  Select innerJoin(final @NotNull String table, final @NotNull Condition condition);
+
+  Select leftJoin(final @NotNull String table, final @NotNull Condition condition);
+
+  Select rightJoin(final @NotNull String table, final @NotNull Condition condition);
+
+  Select crossJoin(final @NotNull String table, final @NotNull Condition condition);
 
   Select where(final @NotNull Condition condition);
 

@@ -40,8 +40,26 @@ final class SelectQuery implements Select {
   }
 
   @Override
-  public SelectQuery join(final @NotNull String table, final @NotNull Condition condition) {
-    this.joins.add(new Join(table, condition));
+  public Select innerJoin(final @NotNull String table, final @NotNull Condition condition) {
+    this.joins.add(new Join("INNER", table, condition));
+    return this;
+  }
+
+  @Override
+  public SelectQuery leftJoin(final @NotNull String table, final @NotNull Condition condition) {
+    this.joins.add(new Join("LEFT", table, condition));
+    return this;
+  }
+
+  @Override
+  public Select rightJoin(final @NotNull String table, final @NotNull Condition condition) {
+    this.joins.add(new Join("RIGHT", table, condition));
+    return this;
+  }
+
+  @Override
+  public Select crossJoin(final @NotNull String table, final @NotNull Condition condition) {
+    this.joins.add(new Join("CROSS", table, condition));
     return this;
   }
 
@@ -132,5 +150,5 @@ final class SelectQuery implements Select {
     return limit;
   }
 
-  record Join(String target, Condition condition) {}
+  record Join(String type, String target, Condition condition) {}
 }

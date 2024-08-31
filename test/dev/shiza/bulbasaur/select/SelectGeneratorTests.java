@@ -26,8 +26,8 @@ class SelectGeneratorTests {
     final String generatedQuery =
         select("name")
             .from("accounts")
-            .join("users", eq("accounts.user_id", "users.id"))
-            .join("currencies", eq("accounts.currency_id", "currencies.id"))
+            .leftJoin("users", eq("accounts.user_id", "users.id"))
+            .leftJoin("currencies", eq("accounts.currency_id", "currencies.id"))
             .where(eq("user_id").and(eq("currency_id")).and(Conditions.gte("balance")))
             .query();
     assertEquals(expectedQuery, generatedQuery);
@@ -83,7 +83,7 @@ class SelectGeneratorTests {
     final Select counterQuery =
         select("COUNT(*) + 1")
             .from("auroramc_economy_accounts AS counter_query")
-            .join(
+            .leftJoin(
                 "auroramc_registry_users AS counter_users",
                 eq("counter_users.id", "counter_query.user_id"))
             .where(
@@ -101,7 +101,7 @@ class SelectGeneratorTests {
                 "balance",
                 "(" + counterQuery.query() + ") AS position")
             .from("auroramc_economy_accounts AS primary_query")
-            .join(
+            .leftJoin(
                 "auroramc_registry_users AS primary_users",
                 eq("primary_users.id", "primary_query.user_id"))
             .where(eq("currency_id").and(eq("user_id")))

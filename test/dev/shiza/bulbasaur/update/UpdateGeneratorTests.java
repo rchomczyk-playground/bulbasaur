@@ -1,5 +1,6 @@
 package dev.shiza.bulbasaur.update;
 
+import static dev.shiza.bulbasaur.update.Update.update;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dev.shiza.bulbasaur.condition.Conditions;
@@ -16,7 +17,7 @@ class UpdateGeneratorTests {
         """
             .trim();
     final String generatedQuery =
-        UpdateDsl.update("users")
+        update("users")
             .set("username")
             .set("registration_address")
             .set("registration_time")
@@ -36,7 +37,7 @@ class UpdateGeneratorTests {
         """
             .trim();
     final String generatedQuery =
-        UpdateDsl.update("users")
+        update("users")
             .set("username")
             .set("registration_address")
             .set("registration_time")

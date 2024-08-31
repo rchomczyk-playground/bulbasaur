@@ -4,7 +4,7 @@ import static dev.shiza.bulbasaur.condition.Conditions.between;
 import static dev.shiza.bulbasaur.condition.Conditions.eq;
 import static dev.shiza.bulbasaur.condition.Conditions.gt;
 import static dev.shiza.bulbasaur.condition.Conditions.like;
-import static dev.shiza.bulbasaur.select.SelectDsl.select;
+import static dev.shiza.bulbasaur.select.Select.select;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dev.shiza.bulbasaur.condition.Conditions;

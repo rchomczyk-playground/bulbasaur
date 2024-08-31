@@ -1,31 +1,18 @@
 package dev.shiza.bulbasaur.insert;
 
-import dev.shiza.bulbasaur.QueryGenerators;
+import dev.shiza.bulbasaur.Query;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public final class Insert {
+public interface Insert extends Query {
 
-  private final List<String> columns;
-  private String table;
-
-  Insert(final List<String> columns) {
-    this.columns = columns;
+  static Insert insert(final @NotNull String... columns) {
+    return insert(List.of(columns));
   }
 
-  public Insert into(final String table) {
-    this.table = table;
-    return this;
+  static Insert insert(final @NotNull List<String> columns) {
+    return new InsertQuery(columns);
   }
 
-  public String query() {
-    return QueryGenerators.insert().generate(this);
-  }
-
-  String table() {
-    return table;
-  }
-
-  List<String> columns() {
-    return columns;
-  }
+  Insert into(final String table);
 }

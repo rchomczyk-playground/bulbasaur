@@ -1,6 +1,6 @@
 package dev.shiza.bulbasaur.insert;
 
-import static dev.shiza.bulbasaur.insert.InsertDsl.insert;
+import static dev.shiza.bulbasaur.insert.Insert.insert;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;

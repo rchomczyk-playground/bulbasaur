@@ -2,123 +2,45 @@ package dev.shiza.bulbasaur.select;
 
 import static java.util.Collections.singletonList;
 
-import dev.shiza.bulbasaur.QueryGenerators;
+import dev.shiza.bulbasaur.Query;
 import dev.shiza.bulbasaur.condition.Condition;
-import dev.shiza.bulbasaur.condition.Conditions;
-import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public final class Select {
+public interface Select extends Query {
 
-  public static final List<String> WILDCARD = singletonList("*");
-  private boolean distinct = false;
-  private final List<String> fields;
-  private final List<Join> joins = new ArrayList<>();
-  private String table;
-  private Condition whereCondition = Conditions.empty();
-  private Condition havingCondition = Conditions.empty();
-  private String[] groupByFields;
-  private String[] orderByFields;
-  private boolean orderByAscending = true;
-  private Integer limit;
-
-  Select(final List<String> fields) {
-    this.fields = fields.isEmpty() ? WILDCARD : fields;
+  static Select select(final @NotNull String... fields) {
+    return select(List.of(fields));
   }
 
-  public Select distinct() {
-    this.distinct = true;
-    return this;
+  static Select select(final @NotNull List<String> fields) {
+    return new SelectQuery(fields.isEmpty() ? SelectVariables.WILDCARD : fields);
   }
 
-  public Select from(final String table) {
-    this.table = table;
-    return this;
-  }
+  Select distinct();
 
-  public Select join(final String table, final Condition condition) {
-    this.joins.add(new Join(table, condition));
-    return this;
-  }
+  Select from(final @NotNull String table);
 
-  public Select where(final Condition condition) {
-    this.whereCondition = this.whereCondition.and(condition);
-    return this;
-  }
+  Select join(final @NotNull String table, final Condition condition);
 
-  public Select groupBy(final String... fields) {
-    this.groupByFields = fields;
-    return this;
-  }
+  Select where(final @NotNull Condition condition);
 
-  public Select having(final Condition condition) {
-    this.havingCondition = condition;
-    return this;
-  }
+  Select groupBy(final @NotNull String... fields);
 
-  public Select orderBy(final String... fields) {
-    this.orderByFields = fields;
-    return this;
-  }
+  Select having(final @NotNull Condition condition);
 
-  public Select ascending() {
-    this.orderByAscending = true;
-    return this;
-  }
+  Select orderBy(final @NotNull String... fields);
 
-  public Select descending() {
-    this.orderByAscending = false;
-    return this;
-  }
+  Select ascending();
 
-  public Select limit(final int limit) {
-    this.limit = limit;
-    return this;
-  }
+  Select descending();
 
-  public String query() {
-    return QueryGenerators.select().generate(this);
-  }
+  Select limit(final int limit);
 
-  boolean isDistinct() {
-    return distinct;
-  }
+  final class SelectVariables {
 
-  String table() {
-    return table;
-  }
+    private static final List<String> WILDCARD = singletonList("*");
 
-  List<String> fields() {
-    return fields;
+    private SelectVariables() {}
   }
-
-  List<Join> joins() {
-    return joins;
-  }
-
-  Condition whereCondition() {
-    return whereCondition;
-  }
-
-  Condition havingCondition() {
-    return havingCondition;
-  }
-
-  String[] groupByFields() {
-    return groupByFields;
-  }
-
-  String[] orderByFields() {
-    return orderByFields;
-  }
-
-  boolean orderByAscending() {
-    return orderByAscending;
-  }
-
-  Integer limit() {
-    return limit;
-  }
-
-  record Join(String target, Condition condition) {}
 }

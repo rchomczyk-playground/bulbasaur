@@ -50,7 +50,7 @@ final class TableQueryGenerator implements QueryGenerator<TableQuery> {
         + constraint.name()
         + "_constraint"
         + "\nCHECK (\n"
-        + constraint.condition()
+        + constraint.declaration()
         + "\n)";
   }
 

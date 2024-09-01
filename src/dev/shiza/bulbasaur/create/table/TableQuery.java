@@ -44,14 +44,14 @@ final class TableQuery implements Table {
   }
 
   @Override
-  public Table constraint(final @NotNull String name, final @NotNull String condition) {
-    constraints.add(new Constraint(name, condition));
+  public Table constraint(final @NotNull String name, final @NotNull String declaration) {
+    constraints.add(new Constraint(name, declaration));
     return this;
   }
 
   @Override
   public Table constraint(final @NotNull String name, final @NotNull Condition condition) {
-    return constraint(name, condition.generate());
+    return constraint(name, "CHECK (\n" + condition.generate() + "\n)");
   }
 
   @Override
@@ -77,5 +77,5 @@ final class TableQuery implements Table {
 
   record Column(String name, String declaration) {}
 
-  record Constraint(String name, String condition) {}
+  record Constraint(String name, String declaration) {}
 }

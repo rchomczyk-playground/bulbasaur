@@ -17,5 +17,5 @@ maven("https://repo.shiza.dev/releases")
 ##### Add dependency
 
 ```kotlin
-implementation("dev.shiza:bulbasaur:1.1.1")
+implementation("dev.shiza:bulbasaur:1.2.0")
 ```

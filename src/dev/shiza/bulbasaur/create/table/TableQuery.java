@@ -1,9 +1,9 @@
 package dev.shiza.bulbasaur.create.table;
 
+import dev.shiza.bulbasaur.column.ColumnDefinition;
+import dev.shiza.bulbasaur.column.ColumnDefinitions;
 import dev.shiza.bulbasaur.condition.Condition;
 import dev.shiza.bulbasaur.create.table.TableQueryGenerator.InstanceHolder;
-import dev.shiza.bulbasaur.create.table.definition.TableDefinition;
-import dev.shiza.bulbasaur.create.table.definition.TableDefinitions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,14 +33,14 @@ final class TableQuery implements Table {
   }
 
   @Override
-  public Table column(final @NotNull String name, final @NotNull TableDefinition definition) {
+  public Table column(final @NotNull String name, final @NotNull ColumnDefinition definition) {
     return column(name, definition.generate());
   }
 
   @Override
-  public Table column(final @NotNull String name, final @NotNull TableDefinition... definitions) {
+  public Table column(final @NotNull String name, final @NotNull ColumnDefinition... definitions) {
     return column(
-        name, Arrays.stream(definitions).reduce(TableDefinitions.empty(), TableDefinition::and));
+        name, Arrays.stream(definitions).reduce(ColumnDefinitions.empty(), ColumnDefinition::and));
   }
 
   @Override

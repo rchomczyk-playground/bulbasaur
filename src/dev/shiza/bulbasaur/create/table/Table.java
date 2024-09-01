@@ -1,8 +1,8 @@
 package dev.shiza.bulbasaur.create.table;
 
 import dev.shiza.bulbasaur.Query;
+import dev.shiza.bulbasaur.column.ColumnDefinition;
 import dev.shiza.bulbasaur.condition.Condition;
-import dev.shiza.bulbasaur.create.table.definition.TableDefinition;
 import org.jetbrains.annotations.NotNull;
 
 public interface Table extends Query {
@@ -15,9 +15,9 @@ public interface Table extends Query {
 
   Table column(final @NotNull String name, final @NotNull String definition);
 
-  Table column(final @NotNull String name, final @NotNull TableDefinition definition);
+  Table column(final @NotNull String name, final @NotNull ColumnDefinition definition);
 
-  Table column(final @NotNull String name, final @NotNull TableDefinition... definitions);
+  Table column(final @NotNull String name, final @NotNull ColumnDefinition... definitions);
 
   Table constraint(final @NotNull String name, final @NotNull Condition condition);
 }

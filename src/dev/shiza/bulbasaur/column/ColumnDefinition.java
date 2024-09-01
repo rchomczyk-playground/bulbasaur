@@ -1,11 +1,11 @@
-package dev.shiza.bulbasaur.create.table.definition;
+package dev.shiza.bulbasaur.column;
 
 @FunctionalInterface
-public interface TableDefinition {
+public interface ColumnDefinition {
 
   String generate();
 
-  default TableDefinition and(final TableDefinition definition) {
+  default ColumnDefinition and(final ColumnDefinition definition) {
     final String generatedDefinition = this.generate();
     if (generatedDefinition.isEmpty()) {
       return definition;

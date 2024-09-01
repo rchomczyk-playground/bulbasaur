@@ -46,12 +46,7 @@ final class TableQueryGenerator implements QueryGenerator<TableQuery> {
   }
 
   private String getGeneratedConstraintClause(final Constraint constraint) {
-    return "CONSTRAINT\n"
-        + constraint.name()
-        + "_constraint"
-        + "\nCHECK (\n"
-        + constraint.declaration()
-        + "\n)";
+    return "CONSTRAINT\n" + constraint.name() + "_constraint" + "\n" + constraint.declaration();
   }
 
   static final class InstanceHolder {

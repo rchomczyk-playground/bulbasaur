@@ -31,8 +31,14 @@ public final class ColumnDefinitions {
     return () -> "UNIQUE";
   }
 
+  public static ColumnDefinition defaults(
+      final @NotNull Object defaultValue, final boolean escape) {
+    final String formattedValue = escape ? "'" + defaultValue + "'" : defaultValue.toString();
+    return () -> "DEFAULT " + formattedValue;
+  }
+
   public static ColumnDefinition defaults(final @NotNull Object defaultValue) {
-    return () -> "DEFAULT '" + defaultValue + "'";
+    return defaults(defaultValue, true);
   }
 
   public static ColumnDefinition defaultsNull() {

@@ -35,6 +35,53 @@ final class AlterQuery implements Alter {
   }
 
   @Override
+  public Alter modify(final @NotNull String column, final @NotNull String definition) {
+    this.operation = new Modifying(column, definition);
+    return this;
+  }
+
+  @Override
+  public Alter modify(final @NotNull String column, final @NotNull ColumnDefinition definition) {
+    return modify(column, definition.generate());
+  }
+
+  @Override
+  public Alter modify(
+      final @NotNull String column, final @NotNull ColumnDefinition... definitions) {
+    return modify(
+        column,
+        Arrays.stream(definitions).reduce(ColumnDefinitions.empty(), ColumnDefinition::and));
+  }
+
+  @Override
+  public Alter change(
+      final @NotNull String oldColumn,
+      final @NotNull String newColumn,
+      final @NotNull String definition) {
+    this.operation = new Changing(oldColumn, newColumn, definition);
+    return this;
+  }
+
+  @Override
+  public Alter change(
+      final @NotNull String oldColumn,
+      final @NotNull String newColumn,
+      final @NotNull ColumnDefinition definition) {
+    return change(oldColumn, newColumn, definition.generate());
+  }
+
+  @Override
+  public Alter change(
+      final @NotNull String oldColumn,
+      final @NotNull String newColumn,
+      final @NotNull ColumnDefinition... definitions) {
+    return change(
+        oldColumn,
+        newColumn,
+        Arrays.stream(definitions).reduce(ColumnDefinitions.empty(), ColumnDefinition::and));
+  }
+
+  @Override
   public Alter drop(final @NotNull String column) {
     this.operation = new Dropping(column);
     return this;
@@ -72,6 +119,22 @@ final class AlterQuery implements Alter {
     @Override
     public String query() {
       return "DROP COLUMN " + column;
+    }
+  }
+
+  record Modifying(String column, String definition) implements Query {
+
+    @Override
+    public String query() {
+      return "MODIFY " + column + " " + definition;
+    }
+  }
+
+  record Changing(String oldColumn, String newColumn, String definition) implements Query {
+
+    @Override
+    public String query() {
+      return "CHANGE " + oldColumn + " " + newColumn + " " + definition;
     }
   }
 

@@ -27,6 +27,10 @@ public final class ColumnDefinitions {
     return () -> "REFERENCES " + referencedTable + " (" + referencedColumn + ")";
   }
 
+  public static ColumnDefinition unique() {
+    return () -> "UNIQUE";
+  }
+
   public static ColumnDefinition defaults(final @NotNull Object defaultValue) {
     return () -> "DEFAULT '" + defaultValue + "'";
   }

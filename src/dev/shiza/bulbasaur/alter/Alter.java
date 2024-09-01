@@ -18,5 +18,26 @@ public interface Alter extends Query {
 
   Alter drop(final @NotNull String column);
 
+  Alter modify(final @NotNull String column, final @NotNull String definition);
+
+  Alter modify(final @NotNull String column, final @NotNull ColumnDefinition definition);
+
+  Alter modify(final @NotNull String column, final @NotNull ColumnDefinition... definitions);
+
+  Alter change(
+      final @NotNull String oldColumn,
+      final @NotNull String newColumn,
+      final @NotNull String definition);
+
+  Alter change(
+      final @NotNull String oldColumn,
+      final @NotNull String newColumn,
+      final @NotNull ColumnDefinition definition);
+
+  Alter change(
+      final @NotNull String oldColumn,
+      final @NotNull String newColumn,
+      final @NotNull ColumnDefinition... definitions);
+
   Alter rename(final @NotNull String oldColumn, final @NotNull String newColumn);
 }

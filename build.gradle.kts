@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "dev.shiza"
-version = "1.2.6-SNAPSHOT"
+version = "1.2.6"
 
 repositories {
     mavenCentral()

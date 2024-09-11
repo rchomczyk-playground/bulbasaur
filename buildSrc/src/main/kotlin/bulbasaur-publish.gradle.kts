@@ -1,26 +1,13 @@
 plugins {
-    java
+    `java-library`
     `maven-publish`
 }
 
 group = "dev.shiza"
-version = "1.2.7-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compileOnly("org.jetbrains:annotations:24.1.0")
-    testImplementation(platform("org.junit:junit-bom:5.11.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
+version = "1.3.0-SNAPSHOT"
 
 java {
     withSourcesJar()
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
 }
 
 publishing {
@@ -32,13 +19,6 @@ publishing {
             username = "MAVEN_USERNAME",
             password = "MAVEN_PASSWORD"
         )
-    }
-
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = "bulbasaur"
-            from(project.components["java"])
-        }
     }
 }
 
@@ -66,19 +46,19 @@ fun RepositoryHandler.maven(
     }
 }
 
-sourceSets {
-    main {
-        java.setSrcDirs(listOf("src"))
-        resources.setSrcDirs(emptyList<String>())
-    }
-    test {
-        java.setSrcDirs(listOf("test"))
-        resources.setSrcDirs(emptyList<String>())
-    }
+interface BulbasaurPublishExtension {
+    var artifactId: String
 }
 
-tasks {
-    test {
-        useJUnitPlatform()
+val extension = extensions.create<BulbasaurPublishExtension>("bulbasaurPublish")
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                artifactId = extension.artifactId
+                from(project.components["java"])
+            }
+        }
     }
 }

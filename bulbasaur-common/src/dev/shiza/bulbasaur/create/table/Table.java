@@ -19,6 +19,8 @@ public interface Table extends Query {
 
   Table column(final @NotNull String name, final @NotNull ColumnDefinition... definitions);
 
+  Table primaryKeys(final @NotNull String... columns);
+
   Table constraint(final @NotNull String name, final @NotNull String condition);
 
   Table constraint(final @NotNull String name, final @NotNull Condition condition);

@@ -18,11 +18,21 @@ final class TableQueryGenerator implements QueryGenerator<TableQuery> {
       queryBuilder.append(" IF NOT EXISTS");
     }
     queryBuilder.append(" ").append(table.getName()).append("\n(\n");
+
     appendColumnClauses(queryBuilder, table);
+    if (!table.getPrimaryKeys().isEmpty()) {
+      queryBuilder
+          .append(",\n")
+          .append("PRIMARY KEY (")
+          .append(String.join(", ", table.getPrimaryKeys()))
+          .append(")");
+    }
+
     if (!table.getConstraints().isEmpty()) {
       queryBuilder.append(",\n");
       appendConstraintClauses(queryBuilder, table);
     }
+
     queryBuilder.append("\n)");
     return queryBuilder.toString();
   }

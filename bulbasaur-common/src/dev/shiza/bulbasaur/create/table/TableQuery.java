@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 final class TableQuery implements Table {
 
   private final String name;
+  private final List<String> primaryKeys = new ArrayList<>();
   private final List<Column> columns = new ArrayList<>();
   private final List<Constraint> constraints = new ArrayList<>();
   private boolean ifNotExists;
@@ -44,6 +45,12 @@ final class TableQuery implements Table {
   }
 
   @Override
+  public Table primaryKeys(final @NotNull String... columns) {
+    primaryKeys.addAll(List.of(columns));
+    return this;
+  }
+
+  @Override
   public Table constraint(final @NotNull String name, final @NotNull String declaration) {
     constraints.add(new Constraint(name, declaration));
     return this;
@@ -69,6 +76,10 @@ final class TableQuery implements Table {
 
   public List<Column> getColumns() {
     return columns;
+  }
+
+  public List<String> getPrimaryKeys() {
+    return primaryKeys;
   }
 
   public List<Constraint> getConstraints() {

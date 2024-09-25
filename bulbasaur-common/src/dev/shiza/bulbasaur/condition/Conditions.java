@@ -1,5 +1,7 @@
 package dev.shiza.bulbasaur.condition;
 
+import dev.shiza.bulbasaur.statement.PreparedStatementUtils;
+
 public final class Conditions {
 
   private static final String ESCAPED_VALUE = "?";
@@ -8,6 +10,10 @@ public final class Conditions {
 
   public static Condition empty() {
     return () -> "";
+  }
+
+  public static Condition in(final String field, final int size) {
+    return () -> field + " IN " + "(" + PreparedStatementUtils.getEscapedParameters(size) + ")";
   }
 
   public static Condition eq(final String field, final Object value) {

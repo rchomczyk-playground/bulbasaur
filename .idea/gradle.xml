@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/bulbasaur-common" />
             <option value="$PROJECT_DIR$/bulbasaur-common-unit" />
+            <option value="$PROJECT_DIR$/bulbasaur-generator" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -11,7 +11,7 @@ final class ReplaceQueryGenerator implements QueryGenerator<ReplaceQuery> {
   @Override
   public String generate(final @NotNull ReplaceQuery replace) {
     final StringBuilder queryBuilder = new StringBuilder();
-    queryBuilder.append("REPLACE ");
+    queryBuilder.append("REPLACE");
     appendPriorityClause(queryBuilder, replace);
     queryBuilder.append("\nINTO ").append(replace.getTable());
     appendValuesClause(queryBuilder, replace);
@@ -20,7 +20,7 @@ final class ReplaceQueryGenerator implements QueryGenerator<ReplaceQuery> {
 
   private void appendPriorityClause(final StringBuilder queryBuilder, final ReplaceQuery replace) {
     if (replace.getPriority() != null) {
-      queryBuilder.append(replace.getPriority());
+      queryBuilder.append(" ").append(replace.getPriority());
     }
   }
 

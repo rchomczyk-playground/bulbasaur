@@ -17,5 +17,14 @@ maven("https://repo.shiza.dev/releases")
 ##### Add dependency
 
 ```kotlin
-implementation("dev.shiza:bulbasaur:1.2.5")
+implementation("dev.shiza:bulbasaur:1.4.0")
+```
+
+###### Annotation processor
+
+Since version 1.4.0 of bulbasaur there is an implementation of automatically generated
+queries in compilation time.
+
+```kotlin
+annotationProcessor("dev.shiza:bulbasaur-generator:1.4.0")
 ```
